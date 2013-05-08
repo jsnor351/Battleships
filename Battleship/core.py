@@ -1,6 +1,6 @@
 from random import *
 
-
+global ship_length = 3                      # makes the ship 3 coordinates in length
 
 def board_difficulty():                     # function where user inputs how large the board will be
     global size                             # Global variable declared for the size of the board
@@ -25,10 +25,23 @@ def get_vals():                             # function that prompts the player f
     guess_col = input("Guess Col: ") - 1    # defines the variable as user input -1 because lists start at 0
 
 def set_row_and_col():                      # function that sets the row and column for the ship in the list          
-    global ship_row                         # Global variable for the ship row
-    ship_row = randint(0,len(board))        # defines the variable as a random interger
-    global ship_col                         # Global variable for the ship column
-    ship_col = randint(0,len(board))        # defines the variable as a random interger
+    global vert_or_hort   #variable to determine ship orientation
+    global ship_row         # Global variable for the ship row
+    global ship_start
+    vert_or_hort = randint(0,1)
+    ship_row = []
+    global ship_col         # Global variable for the ship column
+    ship_col = []
+    ship_start = randint(0,len(board))     # defines the variable as a random interger
+    if vert_or_hort == 0:                       #if horizontal
+        for x in range(ship_length):
+            ship_row.append(ship_start + x)     #create list of horizontal ship locations
+        ship_col = ship_start                   #set single vertical coordinates
+    else:                                       #if not horizontal
+        ship_row = ship_start                   #set as one coordinate
+        for x in range(ship_length):            #set vertical coordinates
+            ship_col.append(ship_start + x)
+    print ship_col, ship_row                #PRINTS SHIP COORDINATES FOR TROUBLESHOOTING
     return ship_col, ship_row               # returns 2 random numbers 
 
 def get_difficulty():                       # function that gets user input to determine how many guesses they will get
